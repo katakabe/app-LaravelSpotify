@@ -13,6 +13,43 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+Auth::routes();
+
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
+
+// Route::group(['middleware' => ['auth']], function () {
+
+//     Route::resource('/', ConditionController::class, [
+//         'names' => [
+//             'index' => 'condition.index',
+//             'store' => 'condition.store',
+//         ]
+//     ]);
+
+    Route::resource('/recomendation', RecomendationController::class, [
+        'names' => [
+            'index' => 'recomendation.index',
+            'store' => 'recomendation.store',
+        ]
+    ]);
+
+    Route::resource('/playlist', PlaylistController::class, [
+        'names' => [
+            'index'   => 'playlist.index',
+            'store'   => 'playlist.store',
+            'destroy' => 'playlist.destroy',
+        ]
+    ]);
+
+    Route::group(['prefix' => 'result'], function() {
+        Route::resource('/', ResultContrller::class);
+    });
+
+
+    Route::group(['prefix' => 'genre'], function() {
+        Route::resource('/', GenreSeedsController::class);
+    });
+// });
