@@ -21,7 +21,7 @@ function artistSearch($artistName) {
 function relatedArtistTopAlbum($artistId) {
     global $api;
     $relatedArtistAlbum = $api->getArtistAlbums($artistId, array('country' => 'JP'))->items;
-     // 取得するアルバムは人気があるものとは限らない
+     // 取得するアルバム
      $relatedArtistTopAlbum = array(
          'artist_url' => $relatedArtistAlbum[0]->artists[0]->external_urls->spotify,
          'artist_name' => $relatedArtistAlbum[0]->artists[0]->external_urls->name,

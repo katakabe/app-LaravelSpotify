@@ -1,6 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ConditionController;
+use App\Http\Controllers\GenreSeedsController;
+use App\Http\Controllers\PlaylistController;
+use App\Http\Controllers\RecomendationController;
+use App\Http\Controllers\ResultContrller;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,21 +18,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
 Auth::routes();
 
-Route::get('/', function () {
-    return view('index');
-});
+Route::group(['middleware' => ['auth']], function () {
 
-// Route::group(['middleware' => ['auth']], function () {
-
-//     Route::resource('/', ConditionController::class, [
-//         'names' => [
-//             'index' => 'condition.index',
-//             'store' => 'condition.store',
-//         ]
-//     ]);
+    Route::resource('/', ConditionController::class, [
+        'names' => [
+            'index' => 'condition.index',
+            'store' => 'condition.store',
+        ]
+    ]);
 
     Route::resource('/recomendation', RecomendationController::class, [
         'names' => [
@@ -52,4 +52,4 @@ Route::get('/', function () {
     Route::group(['prefix' => 'genre'], function() {
         Route::resource('/', GenreSeedsController::class);
     });
-// });
+});
